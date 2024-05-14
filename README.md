@@ -6,10 +6,10 @@ The executables are contained in a zip folder distribuited as a release archive 
 Once installed, this package will be available with `import wgse.third_party` but it doesn't offer any feature. The package is used by by discover the executables through its location on disk.
 
 ## Make a new release
-```
+```batch
 git clone https://github.com/WGSE-NG/External
 cd External
-# Remember to bump the version inside setup.py
+rem Remember to bump the version inside setup.py
 rmdir /s /q WGSE_NG_3rd_party.egg-info & rmdir /s /q dist & python -m build
 rem Upload (for testing)
 python3 -m twine upload --repository testpypi dist/*
