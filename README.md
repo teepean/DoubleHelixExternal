@@ -1,5 +1,5 @@
 # Description
-
+[PyPi Page](https://pypi.org/project/WGSE-NG-3rd-party/)
 This repository is just a placeholder that build a wheel that is used to distribute 3rd party executables that are used by WGSE-NG on Windows.
 
 The executables are contained in a zip folder distribuited as a release archive (to not check-in the binaries). The setup.py here is just to download that file a build a wheel containing the executables.
