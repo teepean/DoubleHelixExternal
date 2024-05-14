@@ -16,3 +16,8 @@ python3 -m twine upload --repository testpypi dist/*
 rem Upload (prod)
 python3 -m twine upload --repository pypi dist/*
 ```
+
+## Install (prod)
+```batch
+python -m pip install WGSE-NG-3rd-party
+```
