@@ -3,8 +3,8 @@
 
 This repository build a wheel that is used to distribute 3rd party executables used by WGSE-NG on Windows.
 
-The executables are contained in a zip folder distribuited as a release archive (to not check-in the binaries). The setup.py here is just to download that file a build a wheel containing the executables.
-Once installed, this package will be available with `import wgse.third_party` but it doesn't offer any feature. The package is used by by discover the executables through its location on disk.
+The executables are contained in a zip folder distribuited as a release artifact for this project (to not check-in the binaries). The setup.py here is just to download that archive and build a wheel with it.
+Once installed, this package will be available with `import wgse.third_party` but it doesn't offer any feature as there isn't any python code inside. The package is used to discover the executables through its location on disk.
 
 ## Make a new release
 ```batch
@@ -22,3 +22,23 @@ python3 -m twine upload --repository pypi dist/*
 ```batch
 python -m pip install WGSE-NG-3rd-party
 ```
+
+## Example usage
+```python
+from wgse import third_party
+from pathlib import Path
+from subprocess import Popen
+folder = Path(third_party.__file__).parent
+# Launch something, e.g., bcftools
+Popen(folder.joinpath("bcftools.exe"))
+```
+
+## Latest release Content
+
+Tools | Version
+------|--------
+fastp | v0.21.0
+minimap2 | 
+htslib suite (tabix, bcftools, htsfile, samtools, bgzip) | v1.15.1
+bwa |0.7.17-r1198-dirty
+haplogrep |v2.4.0
