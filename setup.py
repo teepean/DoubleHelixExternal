@@ -2,12 +2,18 @@ from setuptools import setup
 import urllib.request
 from zipfile import ZipFile
 from pathlib import Path
+
 DOC = ""
 
 Path("wgse/third_party").mkdir(parents=True, exist_ok=True)
 Path("wgse/third_party/__init__.py").touch(exist_ok=True)
 
-urllib.request.urlretrieve("https://github.com/WGSE-NG/External/releases/download/v0.0.1/third_party-1.0.0.zip", "third_party.zip")
+if not Path("third_party.zip").exists():
+    urllib.request.urlretrieve(
+        "https://github.com/WGSE-NG/External/releases/download/v0.0.1/third_party-1.0.0.zip",
+        "third_party.zip",
+    )
+    
 with ZipFile("third_party.zip", "r") as f:
     f.extractall(Path("wgse/third_party"))
 
