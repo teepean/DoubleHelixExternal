@@ -3,8 +3,6 @@ import urllib.request
 from zipfile import ZipFile
 from pathlib import Path
 
-DOC = ""
-
 Path("wgse/third_party").mkdir(parents=True, exist_ok=True)
 Path("wgse/third_party/__init__.py").touch(exist_ok=True)
 
