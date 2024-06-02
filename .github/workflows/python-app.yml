@@ -45,6 +45,7 @@ jobs:
     - name: Compile htslib
       shell: msys2 {0}
       run: |
+        export PATH=$PATH:/mingw64/bin
         pushd .
         cd htslib
         autoreconf -i
@@ -54,6 +55,7 @@ jobs:
     - name: Compile samtools
       shell: msys2 {0}
       run: |
+        export PATH=$PATH:/mingw64/bin
         pushd .
         cd samtools
         autoheader
@@ -64,6 +66,7 @@ jobs:
     - name: Compile bcftools
       shell: msys2 {0}
       run: |
+        export PATH=$PATH:/mingw64/bin
         pushd .
         cd bcftools
         autoheader
@@ -74,6 +77,7 @@ jobs:
     - name: Compile bwa
       shell: msys2 {0}
       run: |
+        export PATH=$PATH:/mingw64/bin
         pushd .
         cd bwa
         make -j32
@@ -81,6 +85,7 @@ jobs:
     - name: Compile minimap2
       shell: msys2 {0}
       run: |
+        export PATH=$PATH:/mingw64/bin
         pushd .
         cd minimap2
         make -j32
