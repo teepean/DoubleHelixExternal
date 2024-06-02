@@ -24,11 +24,11 @@ jobs:
       uses: msys2/setup-msys2@v2
       with:
         msystem: UCRT64
-        update: true
+        update: false
         install: >-
           git
           autotools
-          gzz
+          gcc
           zlib-devel
           libbz2-devel
           liblzma-devel
