@@ -44,4 +44,43 @@ jobs:
         git clone --depth 1 --recurse-submodules --branch v2.28 https://github.com/lh3/minimap2
     - name: Compile htslib
       shell: msys2 {0}
-      run: echo hello world
+      run: |
+        pushd .
+        cd htslib
+        autoreconf -i
+        ./configure
+        make -j32
+        popd
+    - name: Compile samtools
+      shell: msys2 {0}
+      run: |
+        pushd .
+        cd samtools
+        autoheader
+        autoconf -Wno-syntax
+        ./configure
+        make -j32
+        popd
+    - name: Compile bcftools
+      shell: msys2 {0}
+      run: |
+        pushd .
+        cd bcftools
+        autoheader
+        autoconf -Wno-syntax
+        ./configure
+        make -j32
+        popd
+    - name: Compile bwa
+      shell: msys2 {0}
+      run: |
+        pushd .
+        cd bwa
+        make -j32
+        popd      
+    - name: Compile minimap2
+      shell: msys2 {0}
+      run: |
+        pushd .
+        cd minimap2
+        make -j32
