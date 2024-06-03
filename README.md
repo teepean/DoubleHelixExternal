@@ -1,9 +1,9 @@
 # Description
 [PyPi Page](https://pypi.org/project/WGSE-NG-3rd-party/)
 
-This repository build a wheel that is used to distribute 3rd party executables used by WGSE-NG on Windows.
+This repository build a wheel that is used to distribute 3rd party executable dependencies used by WGSE-NG on Windows.
 
-The executables are contained in a zip folder distributed as a release artifact for this project (to not check-in the binaries). The setup.py here is just to download that archive and build a wheel with it.
+The executables are built under msys2, packaged in a wheel and distribuited on PyPI by a couple of GitHub action.
 Once installed, this package will be available with `import wgse.third_party` but it doesn't offer any feature as there isn't any python code inside. The package is used to discover the executables through its location on disk.
 
 ## Make a new release
@@ -38,8 +38,6 @@ Popen(folder.joinpath("bcftools.exe"))
 
 Tools | Version
 ------|--------
-fastp | v0.21.0
-minimap2 | 
-htslib suite (tabix, bcftools, htsfile, samtools, bgzip) | v1.15.1
-bwa |0.7.17-r1198-dirty
-haplogrep |v2.4.0
+minimap2 | 2.28
+htslib suite (tabix, bcftools, htsfile, samtools, bgzip) | v1.20
+bwa |0.7.18
