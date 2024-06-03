@@ -11,9 +11,7 @@ permissions:
 
 jobs:
   build:
-
     runs-on: windows-latest
-
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -101,13 +99,28 @@ jobs:
         python import_scanner.py
     - name: Build package
       run: python -m build
-    - name: Publish package
-      uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_API_TOKEN }}
+    #- uses: actions/upload-artifact@v4
+    #  with:
+    #    name: third_party
+    #    path: wgse/third_party/
+    #    retention-days: 1
     - uses: actions/upload-artifact@v4
       with:
-        name: third_party
-        path: wgse/third_party/
+        name: wheels
+        path: dist/
         retention-days: 1
+  pypi-publish:
+    name: Upload release to PyPI
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: pypi
+      url: https://pypi.org/p/WGSE-NG-3rd-party
+    permissions:
+      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        name: wheels        
+    - name: Publish package distributions to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
