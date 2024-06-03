@@ -28,10 +28,10 @@ jobs:
           zlib-devel
           libbz2-devel
           liblzma-devel
-          mingw-w64-x86_64-tools-git
           ncurses-devel
           python
           python-pip
+          mingw-w64-ucrt-x86_64-tools-git
     - name: Clone repositories
       shell: msys2 {0}
       run: |
