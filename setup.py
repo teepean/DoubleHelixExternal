@@ -13,7 +13,7 @@ setup(
     long_description="Whole Genome Sequencing data manipulation tool",
     install_requires=[],
     url="https://github.com/chaplin89/WGSE-NG",
-    version="0.0.1",
+    version="0.0.2",
     classifiers=[
         "Development Status :: 1 - Planning",
         "Intended Audience :: Developers",
