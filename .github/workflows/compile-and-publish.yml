@@ -1,9 +1,7 @@
 name: Compile MSYS2 Dependencies
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
+  release:
     branches: [ "main" ]
 
 permissions:
