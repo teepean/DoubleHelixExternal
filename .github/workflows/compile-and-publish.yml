@@ -3,6 +3,7 @@ name: Compile and publish MSYS2 Dependencies
 on:
   release:
     branches: [ "main" ]
+    types: [ published ]
 
 permissions:
   contents: read
