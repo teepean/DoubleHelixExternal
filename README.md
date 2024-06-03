@@ -39,5 +39,5 @@ Popen(folder.joinpath("bcftools.exe"))
 Tools | Version
 ------|--------
 minimap2 | 2.28
-htslib suite (tabix, bcftools, htsfile, samtools, bgzip) | v1.20
+htslib suite (tabix, bcftools, htsfile, samtools, bgzip) | 1.20
 bwa |0.7.18
