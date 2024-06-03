@@ -3,7 +3,10 @@ import sys
 import requests
 
 
-def print_clone_script(tag):
+def print_clone_script(tag:str):
+    last_slash = tag.rfind("/")
+    if last_slash != -1:
+        tag = tag[last_slash+1::]
     ROOT_URL = "https://api.github.com/repos/WGSE-NG/External/releases/tags/"
 
     dependencies = {
