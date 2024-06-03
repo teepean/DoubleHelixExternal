@@ -29,6 +29,8 @@ jobs:
           liblzma-devel
           mingw-w64-x86_64-tools-git
           ncurses-devel
+          python
+          python-pip
     - name: Clone repositories
       shell: msys2 {0}
       run: |
@@ -84,19 +86,19 @@ jobs:
         pushd .
         cd minimap2
         make -j32
+    - name: Scan imports
+      shell: msys2 {0}
+      run: |
+        python -m pip install pefile
+        python import_scanner.py
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.x'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pefile
-        pip install build
-    - name: Scan imports
-      run: |
-        python -m pip install pefile
-        python import_scanner.py
     - name: Build package
       run: python -m build
     #- uses: actions/upload-artifact@v4
