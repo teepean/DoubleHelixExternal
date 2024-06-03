@@ -1,4 +1,4 @@
-name: Compile MSYS2 Dependencies
+name: Compile and publish MSYS2 Dependencies
 
 on:
   release:
