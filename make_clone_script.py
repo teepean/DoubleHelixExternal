@@ -34,6 +34,7 @@ def print_clone_script(tag:str):
             break
     if len(commands) != len(dependencies):
         raise RuntimeError(f"Malformed body. Some dependencies were not found: {body}")
+    print("\n".join(commands), file=sys.stderr)
     print("\n".join(commands))
 
 
