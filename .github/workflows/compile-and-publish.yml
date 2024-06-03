@@ -24,13 +24,15 @@ jobs:
         install: >-
           git
           autotools
-          gcc
-          zlib-devel
-          libbz2-devel
-          liblzma-devel
-          ncurses-devel
-          python
-          python-pip
+          mingw-w64-ucrt-x86_64-toolchain
+          mingw-w64-ucrt-x86_64-zlib
+          mingw-w64-ucrt-x86_64-bzip2
+          mingw-w64-ucrt-x86_64-xz
+          mingw-w64-ucrt-x86_64-ncurses
+          mingw-w64-ucrt-x86_64-python
+          mingw-w64-ucrt-x86_64-python-pip
+          mingw-w64-ucrt-x86_64-libdeflate
+          mingw-w64-ucrt-x86_64-curl
           mingw-w64-ucrt-x86_64-tools-git
     - name: Clone repositories
       shell: msys2 {0}
