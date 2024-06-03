@@ -1,7 +1,4 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
-name: Python application
+name: Compile MSYS2 Dependencies
 
 on:
   push:
@@ -34,6 +31,8 @@ jobs:
           liblzma-devel
           mingw-w64-x86_64-tools-git
           ncurses-devel
+          python
+          python-pip
     - name: Clone repositories
       shell: msys2 {0}
       run: |
@@ -89,3 +88,13 @@ jobs:
         pushd .
         cd minimap2
         make -j32
+    - name: Scan imports
+      shell: msys2 {0}
+      run: |
+        python -m pip install pefile
+        python import_scanner.py
+    - uses: actions/upload-artifact@v4
+      with:
+        name: third_party
+        path: third_party/
+        
