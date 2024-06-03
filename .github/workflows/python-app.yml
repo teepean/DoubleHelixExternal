@@ -31,8 +31,6 @@ jobs:
           liblzma-devel
           mingw-w64-x86_64-tools-git
           ncurses-devel
-          python
-          python-pip
     - name: Clone repositories
       shell: msys2 {0}
       run: |
