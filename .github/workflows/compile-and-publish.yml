@@ -109,5 +109,5 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: third_party
-        path: third_party/
+        path: wgse/third_party/
         retention-days: 1
