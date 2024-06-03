@@ -45,9 +45,9 @@ if __name__ == "__main__":
         Path("minimap2", "minimap2.exe"),
     ]
 
-    destination_root = Path("third_party")
+    destination_root = Path("wgse","third_party")
     if not destination_root.exists():
-        destination_root.mkdir()
+        destination_root.mkdir(parents=True, exist_ok=True)
         
     destination_root.joinpath("__init__.py").touch()
 
