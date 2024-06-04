@@ -45,7 +45,7 @@ if __name__ == "__main__":
         Path("minimap2", "minimap2.exe"),
     ]
 
-    destination_root = Path("wgse","third_party")
+    destination_root = Path("helix","third_party")
     if not destination_root.exists():
         destination_root.mkdir(parents=True, exist_ok=True)
         
