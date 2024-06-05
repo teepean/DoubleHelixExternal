@@ -14,7 +14,7 @@ The build works in this way:
 
 ## Install (prod)
 ```batch
-python -m pip install helix-app-3rd-party
+python -m pip install doublehelix-external
 ```
 
 ## Example usage
