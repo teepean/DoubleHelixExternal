@@ -43,6 +43,7 @@ if __name__ == "__main__":
         Path("samtools", "samtools.exe"),
         Path("bcftools", "bcftools.exe"),
         Path("minimap2", "minimap2.exe"),
+        Path("/", "usr", "bin", "gzip.exe"),
     ]
 
     destination_root = Path("helix","third_party")
