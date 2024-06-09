@@ -1,7 +1,7 @@
 # Description
 [PyPi Page](https://pypi.org/project/doublehelix-external/)
 
-This repository is used to build a wheel that install a module called `helix.third_party`. This module contains 3rd party dependencies for [DoubbleHelix](https://github.com/DoubleHelixApp/DoubleHelix) for Windows.
+This repository is used to build a wheel that install a module called `helix.third_party`. This module contains 3rd party dependencies for [DoubleHelix](https://github.com/DoubleHelixApp/DoubleHelix) for Windows.
 The build works in this way:
 - A release is made. The release contains inside its note a table with git tags, one for each of the dependencies
 - A GitHub action is executed every time a new release is made
