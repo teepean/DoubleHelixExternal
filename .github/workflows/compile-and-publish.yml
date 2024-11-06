@@ -1,16 +1,11 @@
 name: Compile and publish MSYS2 Dependencies
-
 on:
   release:
     branches: [ "main" ]
     types: [ published ]
-
 permissions:
   contents: read
-
 jobs:
-  # Builds on MSYS2 and upload a wheels artifact to be 
-  # released on PyPI
   build:
     runs-on: windows-latest
     steps:
@@ -19,8 +14,8 @@ jobs:
     - name: Set up MSYS2
       uses: msys2/setup-msys2@v2
       with:
-        msystem: UCRT64
-        update: false
+        msystem: ucrt64
+        update: true
         install: >-
           git
           autotools
@@ -32,6 +27,19 @@ jobs:
           python
           python-pip
           mingw-w64-ucrt-x86_64-tools-git
+          mingw-w64-ucrt-x86_64-toolchain
+          mingw-w64-ucrt-x86_64-curl
+          mingw-w64-ucrt-x86_64-libdeflate
+          mingw-w64-ucrt-x86_64-bzip2
+          mingw-w64-ucrt-x86_64-zlib
+          mingw-w64-ucrt-x86_64-xz
+          mingw-w64-ucrt-x86_64-openssl
+          mingw-w64-ucrt-x86_64-libtre-git
+          mingw-w64-ucrt-x86_64-libiconv
+          mingw-w64-ucrt-x86_64-libsystre
+          mingw-w64-ucrt-x86_64-libwinpthread
+          mingw-w64-ucrt-x86_64-ncurses
+          mingw-w64-ucrt-x86_64-autotools
     - name: Clone repositories
       shell: msys2 {0}
       run: |
@@ -42,7 +50,7 @@ jobs:
     - name: Compile htslib
       shell: msys2 {0}
       run: |
-        export PATH=$PATH:/mingw64/bin
+        export PATH=$PATH:/ucrt64/bin
         pushd .
         cd htslib
         autoreconf -i
@@ -52,7 +60,7 @@ jobs:
     - name: Compile samtools
       shell: msys2 {0}
       run: |
-        export PATH=$PATH:/mingw64/bin
+        export PATH=$PATH:/ucrt64/bin
         pushd .
         cd samtools
         autoheader
@@ -63,7 +71,7 @@ jobs:
     - name: Compile bcftools
       shell: msys2 {0}
       run: |
-        export PATH=$PATH:/mingw64/bin
+        export PATH=$PATH:/ucrt64/bin
         pushd .
         cd bcftools
         autoheader
@@ -74,7 +82,9 @@ jobs:
     - name: Compile bwa
       shell: msys2 {0}
       run: |
-        export PATH=$PATH:/mingw64/bin
+        # Temporarily switch to MSYS for bwa compilation
+        export MSYSTEM=MSYS
+        export PATH=/usr/bin:$PATH
         pushd .
         cd bwa
         make -j32
@@ -82,10 +92,13 @@ jobs:
     - name: Compile minimap2
       shell: msys2 {0}
       run: |
-        export PATH=$PATH:/mingw64/bin
+        # Switch back to UCRT64 for minimap2
+        export MSYSTEM=UCRT64
+        export PATH=$PATH:/ucrt64/bin
         pushd .
         cd minimap2
         make -j32
+        popd
     - name: Scan imports
       shell: msys2 {0}
       run: |
@@ -107,7 +120,6 @@ jobs:
         path: dist/
         retention-days: 1
   
-  # Publish Job
   pypi-publish:
     name: Upload release to PyPI
     runs-on: ubuntu-latest

@@ -13,7 +13,7 @@ def print_clone_script(tag:str):
         "htslib": "git clone --depth 1 --recurse-submodules --branch {version} https://github.com/samtools/htslib",
         "samtools": "git clone --depth 1 --recurse-submodules --branch {version} https://github.com/samtools/samtools",
         "bcftools": "git clone --depth 1 --recurse-submodules --branch {version} https://github.com/samtools/bcftools",
-        "bwa": "git clone --depth 1 --recurse-submodules --branch {version} https://github.com/lh3/bwa",
+        "bwa": "git clone --depth 1 --recurse-submodules --branch cygwin https://github.com/WGSExtract/bwa/tree/cygwin",
         "minimap2": "git clone --depth 1 --recurse-submodules --branch {version} https://github.com/lh3/minimap2",
     }
 
