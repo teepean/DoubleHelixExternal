@@ -1,0 +1,106 @@
+name: Compile and publish MSYS2 Dependencies
+on:
+  release:
+    branches: [ "main" ]
+    types: [ published ]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Set up MSYS2
+      uses: msys2/setup-msys2@v2
+      with:
+        msystem: ucrt64
+        update: true
+        install: >-
+          git
+          autotools
+          gcc
+          zlib-devel
+          libbz2-devel
+          liblzma-devel
+          ncurses-devel
+          python
+          python-pip
+          mingw-w64-ucrt-x86_64-tools-git
+          mingw-w64-ucrt-x86_64-toolchain
+          mingw-w64-ucrt-x86_64-curl
+          mingw-w64-ucrt-x86_64-libdeflate
+          mingw-w64-ucrt-x86_64-bzip2
+          mingw-w64-ucrt-x86_64-zlib
+          mingw-w64-ucrt-x86_64-xz
+          mingw-w64-ucrt-x86_64-openssl
+          mingw-w64-ucrt-x86_64-libtre-git
+          mingw-w64-ucrt-x86_64-libiconv
+          mingw-w64-ucrt-x86_64-libsystre
+          mingw-w64-ucrt-x86_64-libwinpthread
+          mingw-w64-ucrt-x86_64-ncurses
+          mingw-w64-ucrt-x86_64-autotools
+    - name: Clone repositories
+      shell: msys2 {0}
+      run: |
+        python -m pip install requests
+        python make_clone_script.py $GITHUB_REF > clone_script.sh
+        chmod +x clone_script.sh
+        ./clone_script.sh
+    - name: Compile htslib
+      shell: msys2 {0}
+      run: |
+        export PATH=$PATH:/ucrt64/bin
+        pushd .
+        cd htslib
+        autoreconf -i
+        ./configure
+        make -j32
+        popd
+    - name: Compile samtools
+      shell: msys2 {0}
+      run: |
+        export PATH=$PATH:/ucrt64/bin
+        pushd .
+        cd samtools
+        autoheader
+        autoconf -Wno-syntax
+        ./configure
+        make -j32
+        popd
+    - name: Compile bcftools
+      shell: msys2 {0}
+      run: |
+        export PATH=$PATH:/ucrt64/bin
+        pushd .
+        cd bcftools
+        autoheader
+        autoconf -Wno-syntax
+        ./configure
+        make -j32
+        popd
+    - name: Compile bwa
+      shell: msys2 {0}
+      run: |
+        # Temporarily switch to MSYS for bwa compilation
+        export MSYSTEM=MSYS
+        export PATH=/usr/bin:$PATH
+        pushd .
+        cd bwa
+        make -j32
+        popd      
+    - name: Compile minimap2
+      shell: msys2 {0}
+      run: |
+        # Switch back to UCRT64 for minimap2
+        export MSYSTEM=UCRT64
+        export PATH=$PATH:/ucrt64/bin
+        pushd .
+        cd minimap2
+        make -j32
+        popd
+    - name: Scan imports
+      shell: msys2 {0}
+      run: |
+        python -m pip install pefile
+        python import_scanner.py
